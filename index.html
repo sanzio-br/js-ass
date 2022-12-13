@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        display: flex;
+    }
+
+    .card {
+        background-color: aqua;
+        height: 100vh;
+        width: 400px;
+    }
+
+    .menu-item {
+        list-style: none;
+        margin: 1em auto;
+    }
+    .movie {
+        margin: 2em auto auto auto;
+    }
+    #getMovieBtn{
+        background-color: aquamarine;
+        border: none;
+        border-radius: 5px;
+        padding: 4em auto;
+    }
+    #getMovieBtn > a{
+        text-decoration: none;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="card"
+             id="card">
+            <ul id="films"></ul>
+        </div>
+        <div class="movie"
+             id="movies">
+        </div>
+    </div>
+    </div>
+    </div>
+    <script type="module"
+            src="./app.js"
+            defer></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+</body>
+
+</html>
