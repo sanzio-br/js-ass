@@ -1,8 +1,10 @@
+
+
 const container = document.getElementById("card");
 const menu = document.getElementById("films");
 // const list = document.createElement("li")
 // const card = 
-const films = document.getElementById("movie")
+const films = document.getElementById("movies")
 const getMovieBtn = document.querySelectorAll("#getMovieBtn")
 let Data;
 
@@ -27,57 +29,46 @@ const getMovies = async () => {
 }
 getMovies();
 
-// const getSingleMovie = async()=>{
-//     try {
-//         const Id = Number(window.location.hash.substr(1))
-//         const data = await Data.find(item => item.id === Id)
-//         const movie = `
-//         <h2>Title : ${data.title} </h2>
-//         <div class="body">
-//         <p>Description : ${data.description}</p>
-//         <p>Available tickets : ${data.capacity - data.tickets_sold}</p>
-//         <div class="btns">
-//         <button class="buy">Buy</button>
-//         <!-- <div class="delete"></div> -->
-//         </div>
-//         </div>
-//         `
-//         films.innerHTML = movie
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 
-const getSingle = () => {
+const getSingle = async () => {
     const Id = Number(window.location.hash.substr(1))
     let movie;
     const URL = `http://localhost:8000/films/${Id}`
-    fetch(URL).then(res => res.json).then(data => {
-         data.map(({title, description, tickets_sold, capacity})=>{
-            movie += `
+    const res = await axios.get(URL)
+    const data = res.data
+    var store = {
+        availableTickets: data.capacity - data.tickets_sold
+      }
+    const counter =()=>{
+        store.availableTickets--
+    }
+    
+    movie = `
         <div>
-        <h2>Title : ${title} </h2>
+        <h2>Title : ${data.title} </h2>
         <div class="body">
-        <p>Description : ${description}</p>
-        <p>Available tickets : ${capacity - tickets_sold}</p>
+        <p>Description : ${data.description}</p>
+        <p id="availableTickets">Available tickets : ${store.availableTickets}</p>
         <div class="btns">
-        <button class="buy">Buy</button>
+        <button class="buy" onclick = ${counter()} >Buy</button>
         <!-- <div class="delete"></div> -->
         </div>
         </div>
         </div>`
-         })
+        films.innerHTML= movie
         
-        films.innerHTML = movie
-    })
 }
 
 getMovieBtn.forEach(element => {
     element.addEventListener('click', () => {
-        // getSingle();
+        getSingle();
         alert("wahh")
+        console.log(Number(window.location.hash.substr(1)));
     })
 });
+window.addEventListener('popstate', getSingle());
 
-// console.log(getMovieBtn[id]);
 
+const buyTicket = async ()=>{
+
+}
